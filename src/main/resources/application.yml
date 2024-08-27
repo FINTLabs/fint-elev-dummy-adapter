@@ -1,0 +1,23 @@
+server:
+  port: 8091
+
+springfox:
+  title: 'FINT SSE Adapter Skeleton'
+  version: '@version@'
+
+base-url: https://beta.felleskomponent.no/utdanning/elev/provider
+fint:
+  adapter:
+    organizations: fintlabs.no
+    sse-endpoint: ${base-url}/sse/%s
+    status-endpoint: ${base-url}/status
+    response-endpoint: ${base-url}/response
+
+  oauth:
+    enabled: true
+    username: ""
+    password: ""
+    client-id: ""
+    client-secret: ""
+    access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
+    scope: fint-client
