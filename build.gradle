@@ -23,7 +23,7 @@ apply plugin: 'org.springframework.boot'
 javadoc {
     source = sourceSets.main.allJava
     classpath = configurations.runtime
-    options.windowTitle = 'FINT Java SSE Adapter Skeleton'
+    options.windowTitle = 'FINT elev dummy adapter'
     options.memberLevel = JavadocMemberLevel.PRIVATE
     destinationDir = file('./javadocs/')
 }
