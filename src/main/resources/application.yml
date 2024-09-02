@@ -21,3 +21,7 @@ fint:
     client-secret: ${fint.adapter.client-secret}
     access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
     scope: fint-client
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
