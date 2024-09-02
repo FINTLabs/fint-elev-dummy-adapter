@@ -12,7 +12,7 @@ metadata:
     fintlabs.no/team: core
     fintlabs.no/org-id: fintlabs.no
 spec:
-  port: '8080'
+  port: 8080
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-elev-dummy-adapter:latest
   imagePullPolicy: Always
