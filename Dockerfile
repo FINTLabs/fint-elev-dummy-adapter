@@ -1,11 +1,9 @@
-FROM gradle:4.10.2-jdk8-alpine as builder
+FROM gradle:8.5-jdk17 as builder
 USER root
 COPY . .
 RUN gradle --no-daemon build
 
-FROM gcr.io/distroless/java
+FROM gcr.io/distroless/java17
 ENV JAVA_TOOL_OPTIONS -XX:+ExitOnOutOfMemoryError
-COPY --from=builder /home/gradle/build/deps/external/*.jar /data/
-COPY --from=builder /home/gradle/build/deps/fint/*.jar /data/
-COPY --from=builder /home/gradle/build/libs/fint-sse-adapter-skeleton-*.jar /data/fint-elev-dummy-adapter.jar
-CMD ["/data/fint-elev-dummy-adapter.jar"]
+COPY --from=builder /home/gradle/build/libs/fint-elev-dummy-adapter*.jar /data/app.jar
+CMD ["/data/app.jar"]
