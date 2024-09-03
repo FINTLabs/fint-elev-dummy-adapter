@@ -1,0 +1,19 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: FintAdapter
+metadata:
+  name: fint-elev-dummy-adapter
+  namespace: fintlabs-no
+  labels:
+    app.kubernetes.io/name: fint-elev-dummy-adapter
+    app.kubernetes.io/instance: fint-elev-dummy-adapter
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: adapter
+    app.kubernetes.io/part-of: core
+    fintlabs.no/team: core
+    fintlabs.no/org-id: fintlabs.no
+
+spec:
+  orgId: fintlabs.no
+  note: Dette er et adapter for å populere beta med test-data
+  components:
+    - Utdanning_elev
