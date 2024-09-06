@@ -51,7 +51,7 @@ public class SseInitializer {
             FintEventListener fintEventListener = new FintEventListener(eventHandlerService);
             fintSse.connect(fintEventListener, ImmutableMap.of(
                     HeaderConstants.ORG_ID, orgId,
-                    HeaderConstants.CLIENT, "elev-dummy@adapter.fintlabs.no"));
+                    HeaderConstants.CLIENT, "fint-elev-dummy-adapter-aryal@adapter.fintlabs.no"));
             sseClients.add(fintSse);
         });
     }
