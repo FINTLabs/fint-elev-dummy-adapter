@@ -1,9 +1,9 @@
 server:
   port: 8091
 
-springfox:
-  title: 'FINT SSE Adapter Skeleton'
-  version: '@version@'
+  springfox:
+    title: 'FINT SSE Adapter Skeleton'
+    version: '@version@'
 
 base-url: https://beta.felleskomponent.no/utdanning/elev/provider
 fint:
