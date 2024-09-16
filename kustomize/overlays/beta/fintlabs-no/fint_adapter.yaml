@@ -16,4 +16,4 @@ spec:
   orgId: fintlabs.no
   note: Dette er et adapter for å populere beta med test-data
   components:
-    - Utdanning_elev
+    - utdanning_elev
