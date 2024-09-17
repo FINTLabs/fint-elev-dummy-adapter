@@ -6,12 +6,14 @@ import no.fint.adapter.event.EventStatusService;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.felles.PersonResource;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+@Service
 public class PersonHandler implements Handler {
 
     private EventResponseService eventResponseService;

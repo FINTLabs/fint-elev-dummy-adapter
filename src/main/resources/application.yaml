@@ -5,7 +5,6 @@ server:
     title: 'FINT SSE Adapter Skeleton'
     version: '@version@'
 
-base-url: https://beta.felleskomponent.no/utdanning/elev/provider
 fint:
   oauth:
     enabled: true
@@ -16,8 +15,10 @@ fint:
     access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
     scope: fint-adapter
 
-
   adapter:
+    response-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/response
+    status-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/status
+    sse-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/sse/%s
     organizations: fintlabs.no
     endpoints:
       sse: /sse/%s
