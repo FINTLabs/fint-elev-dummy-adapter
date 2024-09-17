@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping(value = "/admin", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
 
-    @Autowired
-    SseInitializer sseInitializer;
+    private SseInitializer sseInitializer;
+
+    public AdminController(SseInitializer sseInitializer) {
+        this.sseInitializer = sseInitializer;
+    }
 
     @GetMapping("/sse")
     public List<FintSse> getSseConnections() {

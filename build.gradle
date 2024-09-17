@@ -36,7 +36,7 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.6'
     implementation 'com.google.guava:guava:28.2-jre'
 
-    implementation 'no.fint:fint-sse:1.4.1'
+    implementation 'no.fint:fint-sse:2.0.1'
     implementation 'no.fint:fint-event-model:3.0.2'
     implementation 'no.fint:fint-relation-model:1.1.6'
     implementation 'no.fint:fint-utdanning-model-java:3.16.0'

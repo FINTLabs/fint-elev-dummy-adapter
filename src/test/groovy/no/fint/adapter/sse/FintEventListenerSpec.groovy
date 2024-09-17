@@ -1,7 +1,7 @@
 package no.fint.adapter.sse
 
 import no.fint.adapter.sse.FintEventListener
-import no.fint.customcode.service.EventHandlerService
+import no.fint.customcode.service.ElevHandlerService
 import no.fint.event.model.DefaultActions
 import no.fint.event.model.Event
 import org.glassfish.jersey.media.sse.InboundEvent
@@ -9,12 +9,12 @@ import spock.lang.Specification
 
 class FintEventListenerSpec extends Specification {
     private FintEventListener fintEventListener
-    private EventHandlerService eventHandlerService
+    private ElevHandlerService eventHandlerService
     private InboundEvent inboundEvent
 
     void setup() {
         inboundEvent = Mock(InboundEvent)
-        eventHandlerService = Mock(EventHandlerService)
+        eventHandlerService = Mock(ElevHandlerService)
         fintEventListener = new FintEventListener(eventHandlerService)
     }
 

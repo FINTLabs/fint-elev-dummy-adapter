@@ -4,13 +4,14 @@ import com.google.common.collect.ImmutableMap;
 import lombok.Getter;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
+import no.fint.adapter.FintAdapterEndpoints;
 import no.fint.adapter.FintAdapterProps;
+import no.fint.customcode.service.ElevHandlerService;
 import no.fint.customcode.service.EventHandlerService;
 import no.fint.event.model.HeaderConstants;
+import no.fint.oauth.TokenService;
 import no.fint.sse.FintSse;
 import no.fint.sse.FintSseConfig;
-import no.fint.sse.oauth.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 /**
@@ -33,27 +33,33 @@ public class SseInitializer {
     @Getter
     private List<FintSse> sseClients = new ArrayList<>();
 
-    @Autowired
-    private FintAdapterProps props;
+    private final FintAdapterProps props;
 
-    @Autowired
-    private EventHandlerService eventHandlerService;
+    private final FintAdapterEndpoints endpoints;
 
-    @Autowired(required = false)
-    private TokenService tokenService;
+    private final EventHandlerService eventHandlerService;
+
+    private final TokenService tokenService;
+
+    public SseInitializer(FintAdapterProps props, FintAdapterEndpoints endpoints, EventHandlerService eventHandlerService, TokenService tokenService) {
+        this.props = props;
+        this.endpoints = endpoints;
+        this.eventHandlerService = eventHandlerService;
+        this.tokenService = tokenService;
+    }
 
     @PostConstruct
     @Synchronized
     public void init() {
         FintSseConfig config = FintSseConfig.withOrgIds(props.getOrganizations());
-        Arrays.asList(props.getOrganizations()).forEach(orgId -> {
-            FintSse fintSse = new FintSse(props.getSseEndpoint(), tokenService, config);
-            FintEventListener fintEventListener = new FintEventListener(eventHandlerService);
-            fintSse.connect(fintEventListener, ImmutableMap.of(
-                    HeaderConstants.ORG_ID, orgId,
-                    HeaderConstants.CLIENT, "elev-dummy@adapter.fintlabs.no"));
-            sseClients.add(fintSse);
-        });
+        Arrays.asList(props.getOrganizations())
+                .forEach(orgId -> endpoints.getProviders()
+                        .forEach((component, provider) -> {
+                            FintSse fintSse = new FintSse(provider + endpoints.getSse(), tokenService, config);
+                            FintEventListener fintEventListener = new FintEventListener(component, eventHandlerService);
+                            fintSse.connect(fintEventListener, ImmutableMap.of(HeaderConstants.ORG_ID, orgId, HeaderConstants.CLIENT, "adapter"));
+                            sseClients.add(fintSse);
+                        }));
     }
 
     @Scheduled(initialDelay = 20000L, fixedDelay = 5000L)
@@ -70,7 +76,7 @@ public class SseInitializer {
                     .entrySet()
                     .stream()
                     .filter(e -> e.getValue() > props.getExpiration())
-                    .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
             if (!expired.isEmpty()) {
                 log.warn("Stale connections detected: {}", expired);
                 cleanup();

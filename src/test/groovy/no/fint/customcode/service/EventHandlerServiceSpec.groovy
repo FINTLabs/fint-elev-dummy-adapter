@@ -7,14 +7,14 @@ import no.fint.event.model.Event
 import spock.lang.Specification
 
 class EventHandlerServiceSpec extends Specification {
-    private EventHandlerService eventHandlerService
+    private ElevHandlerService eventHandlerService
     private EventStatusService eventStatusService
     private EventResponseService eventResponseService
 
     void setup() {
         eventStatusService = Mock(EventStatusService)
         eventResponseService = Mock(EventResponseService)
-        eventHandlerService = new EventHandlerService(eventStatusService: eventStatusService, eventResponseService: eventResponseService)
+        eventHandlerService = new ElevHandlerService(eventStatusService: eventStatusService, eventResponseService: eventResponseService)
     }
 
     def "Post response on health check"() {
