@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 8081
 
   springfox:
-    title: 'FINT SSE Adapter Skeleton'
+    title: 'FINT elev dummy adapter'
     version: '@version@'
 
 fint:
@@ -13,12 +13,12 @@ fint:
     client-id: ${fint.core.oauth2.client-id}
     client-secret: ${fint.core.oauth2.client-secret}
     access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
-    scope: fint-adapter
+    scope: fint-client
 
   adapter:
-    response-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/response
-    status-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/status
-    sse-endpoint: https://beta.felleskomponent.no/utdanning/elev/provider/sse/%s
+    response-endpoint: ${fint.adapter.endpoints.providers.elev}/response
+    status-endpoint: ${fint.adapter.endpoints.providers.elev}/status
+    sse-endpoint: ${fint.adapter.endpoints.providers.elev}/sse/%s
     organizations: fintlabs.no
     endpoints:
       sse: /sse/%s
@@ -30,3 +30,7 @@ fint:
 spring:
   main:
     allow-bean-definition-overriding: true
+
+logging:
+  level:
+    no.fint: DEBUG
