@@ -1,0 +1,70 @@
+person:
+  birthdate:
+    - 2001-09-26T08:04:47Z
+    - 2000-09-27T08:04:47Z
+    - 2003-09-28T08:04:47Z
+    - 2006-09-29T08:04:47Z
+    - 1999-09-30T08:04:47Z
+    - 1957-10-01T08:04:47Z
+    - 1989-10-02T08:04:47Z
+    - 1997-10-03T08:04:47Z
+    - 1970-10-04T08:04:47Z
+    - 2009-10-05T08:04:47Z
+  name:
+    firstname:
+      - Lukas
+      - Emil
+      - Noah
+      - Filip
+      - Aksel
+      - Emma
+      - Nora
+      - Sara
+      - Ella
+      - Mia
+    lastName:
+      - Hansen
+      - Johansen
+      - Olsen
+      - Larsen
+      - Pedersen
+      - Nilsen
+      - Kristensen
+      - Jensen
+      - Berg
+      - Eriksen
+
+adress:
+  adresselinje:
+    - Storgata 15
+    - Hovedveien 42
+    - Parkveien 5
+    - Solbergveien 8
+    - Fjellveien 23
+    - Elveveien 12
+    - Strandgata 37
+    - Hageveien 19
+    - Kystveien 6
+    - Løvstien 4
+  postnummer:
+    - 0123
+    - 0456
+    - 2345
+    - 0678
+    - 0843
+    - 0987
+    - 0567
+    - 0789
+    - 0150
+    - 0212
+  poststed:
+    - Bergen
+    - Trondheim
+    - Oslo
+    - Skien
+    - Porsgrunn
+    - Bodø
+    - Bærum
+    - Tromsø
+    - Andeby
+    - Mordor
