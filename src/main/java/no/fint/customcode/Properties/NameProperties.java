@@ -1,4 +1,4 @@
-package no.fint.customcode.service.person.Properties;
+package no.fint.customcode.Properties;
 
 import java.util.List;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package no.fint.customcode.service.person.Properties;
+package no.fint.customcode.Properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

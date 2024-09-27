@@ -1,4 +1,5 @@
-package no.fint.customcode.service.person.Properties;
+package no.fint.customcode.Properties;
+
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -8,8 +9,8 @@ import java.util.List;
 
 @Data
 @Configuration
-@ConfigurationProperties("person")
-public class PersonProperties {
-    private NameProperties names;
-    private List<String> birthdate;
+@ConfigurationProperties("kontaktinformasjon")
+public class KontaktInfo {
+    private List<String> epostadresse;
+    private List<String> mobiltelefonnummer;
 }

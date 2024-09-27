@@ -2,8 +2,8 @@ package no.fint.customcode.service.person;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.customcode.service.IdUtil;
-import no.fint.customcode.service.person.Properties.AdresseProperties;
-import no.fint.customcode.service.person.Properties.PersonProperties;
+import no.fint.customcode.Properties.AdresseProperties;
+import no.fint.customcode.Properties.PersonProperties;
 import no.fint.model.felles.kompleksedatatyper.Personnavn;
 import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.felles.kompleksedatatyper.AdresseResource;
