@@ -22,8 +22,6 @@ public class PersonFactory {
     public PersonFactory(PersonProperties personProperties, AdresseProperties adresseProperties) {
         this.personProperties = personProperties;
         this.adresseProperties = adresseProperties;
-        log.info(personProperties.getBirthdate().toString());
-        log.info(personProperties.getNames().toString());
     }
 
     public PersonResource createPerson() {
