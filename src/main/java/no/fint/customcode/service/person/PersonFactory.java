@@ -2,52 +2,42 @@ package no.fint.customcode.service.person;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.customcode.service.IdUtil;
+import no.fint.customcode.service.person.Properties.AdresseProperties;
+import no.fint.customcode.service.person.Properties.PersonProperties;
 import no.fint.model.felles.kompleksedatatyper.Personnavn;
 import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.felles.kompleksedatatyper.AdresseResource;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 @Slf4j
 @Component
 public class PersonFactory {
 
-    private PersonProperties personProperties;
+    private final PersonProperties personProperties;
+    private final AdresseProperties adresseProperties;
 
-    @Value("${person.name.lastName}")
-    private List<String> lastNames;
-
-    @Value("${person.adress.adresselinje}")
-    private List<String> adresseLinje;
-
-    @Value("${person.adress.postnummer}")
-    private List<String> postNummer;
-
-    @Value("${person.adress.poststed}")
-    private List<String> postSted;
-
-
-    Random random = new Random();
-
-    public PersonFactory(PersonProperties personProperties) {
+    public PersonFactory(PersonProperties personProperties, AdresseProperties adresseProperties) {
         this.personProperties = personProperties;
-        log.info(personProperties.toString());
+        this.adresseProperties = adresseProperties;
+        log.info(personProperties.getBirthdate().toString());
+        log.info(personProperties.getNames().toString());
     }
 
     public PersonResource createPerson() {
         PersonResource personResource = new PersonResource();
-        personResource.setNavn(randomPersonnavn(random));
-        personResource.setBostedsadresse(randomAdresse(random));
+        personResource.setNavn(randomPersonnavn());
+        personResource.setBostedsadresse(randomAdresse());
         personResource.setFodselsnummer(IdUtil.createId());
-        personResource.setFodselsdato(randomFodselsDato(random));
+        personResource.setFodselsdato(randomFodselsDato());
+        personResource.setPostadresse(randomAdresse());
         return personResource;
     }
 
-    private Date randomFodselsDato(Random random) {
+    private Date randomFodselsDato() {
+        Random random = new Random();
         Date fodselsdato = new Date();
         fodselsdato.setYear(2003);
         fodselsdato.setMonth(9);
@@ -55,19 +45,18 @@ public class PersonFactory {
         return fodselsdato;
     }
 
-    private Personnavn randomPersonnavn(Random random) {
-//        Personnavn personnavn = new Personnavn();
-//        personnavn.setFornavn(firstNames.get(random.nextInt(firstNames.size())));
-//        personnavn.setFornavn(lastNames.get(random.nextInt(lastNames.size())));
-//        return personnavn;
-        return null;
+    private Personnavn randomPersonnavn() {
+        Personnavn personnavn = new Personnavn();
+        personnavn.setFornavn(personProperties.getNames().getRandomFirstname());
+        personnavn.setEtternavn(personProperties.getNames().getRandomLastname());
+        return personnavn;
     }
 
-    private AdresseResource randomAdresse(Random random) {
+    private AdresseResource randomAdresse() {
         AdresseResource adresseResource = new AdresseResource();
-        adresseResource.setAdresselinje(List.of(adresseLinje.get(random.nextInt(adresseLinje.size()))));
-        adresseResource.setPostnummer(postNummer.get(random.nextInt(postNummer.size())));
-        adresseResource.setPoststed(postSted.get(random.nextInt(postSted.size())));
+        adresseResource.setAdresselinje(adresseProperties.getRandomAdresselinje());
+        adresseResource.setPostnummer(adresseProperties.getRandomPostnummer());
+        adresseResource.setPoststed(adresseProperties.getRandomPoststed());
         return adresseResource;
     }
 

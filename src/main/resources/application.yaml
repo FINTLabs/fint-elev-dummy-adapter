@@ -28,8 +28,8 @@ fint:
         elev: https://beta.felleskomponent.no/utdanning/elev/provider
 
 spring:
-  config:
-    import: "application-data.yaml"
+  profiles:
+    include: data
   main:
     allow-bean-definition-overriding: true
 

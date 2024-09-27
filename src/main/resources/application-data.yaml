@@ -10,8 +10,9 @@ person:
     - 1997-10-03T08:04:47Z
     - 1970-10-04T08:04:47Z
     - 2009-10-05T08:04:47Z
-  name:
+  names:
     firstname:
+      - Henrik
       - Lukas
       - Emil
       - Noah
@@ -22,7 +23,7 @@ person:
       - Sara
       - Ella
       - Mia
-    lastName:
+    lastname:
       - Hansen
       - Johansen
       - Olsen

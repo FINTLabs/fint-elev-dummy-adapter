@@ -3,11 +3,9 @@ package no.fint;
 import no.fint.oauth.OAuthConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-@ConfigurationPropertiesScan
 @EnableScheduling
 @Import(OAuthConfig.class)
 @SpringBootApplication

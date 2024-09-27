@@ -10,6 +10,7 @@ import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.felles.PersonResource;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,11 +26,21 @@ public class PersonHandlerService implements Handler {
 
     private List<PersonResource> personer;
 
+    private PersonFactory personFactory;
 
-    public PersonHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService) {
+    public PersonHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService, PersonFactory personFactory) {
         this.eventResponseService = eventResponseService;
         this.eventStatusService = eventStatusService;
+        this.personFactory = personFactory;
         personer = new ArrayList<>();
+        populateCache(1);
+    }
+
+    private void populateCache (int i){
+        for(int j = 0; j < i; j ++){
+            personer.add(personFactory.createPerson());
+        }
+        log.info("Persons created: {}", personer.toString());
     }
 
     @Override
