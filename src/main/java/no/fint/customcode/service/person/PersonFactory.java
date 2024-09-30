@@ -1,9 +1,11 @@
 package no.fint.customcode.service.person;
 
 import lombok.extern.slf4j.Slf4j;
+import no.fint.customcode.Properties.KontaktInfoProperties;
 import no.fint.customcode.service.IdUtil;
 import no.fint.customcode.Properties.AdresseProperties;
 import no.fint.customcode.Properties.PersonProperties;
+import no.fint.model.felles.kompleksedatatyper.Kontaktinformasjon;
 import no.fint.model.felles.kompleksedatatyper.Personnavn;
 import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.felles.kompleksedatatyper.AdresseResource;
@@ -18,10 +20,12 @@ public class PersonFactory {
 
     private final PersonProperties personProperties;
     private final AdresseProperties adresseProperties;
+    private final KontaktInfoProperties kontaktInfoProperties;
 
-    public PersonFactory(PersonProperties personProperties, AdresseProperties adresseProperties) {
+    public PersonFactory(PersonProperties personProperties, AdresseProperties adresseProperties, KontaktInfoProperties kontaktInfoProperties) {
         this.personProperties = personProperties;
         this.adresseProperties = adresseProperties;
+        this.kontaktInfoProperties = kontaktInfoProperties;
     }
 
     public PersonResource createPerson() {
@@ -31,6 +35,7 @@ public class PersonFactory {
         personResource.setFodselsnummer(IdUtil.createId());
         personResource.setFodselsdato(randomFodselsDato());
         personResource.setPostadresse(randomAdresse());
+        personResource.setKontaktinformasjon(randomKontaktinformasjon());
         return personResource;
     }
 
@@ -56,6 +61,13 @@ public class PersonFactory {
         adresseResource.setPostnummer(adresseProperties.getRandomPostnummer());
         adresseResource.setPoststed(adresseProperties.getRandomPoststed());
         return adresseResource;
+    }
+
+    private Kontaktinformasjon randomKontaktinformasjon() {
+        Kontaktinformasjon kontaktinformasjon = new Kontaktinformasjon();
+        kontaktinformasjon.setEpostadresse(kontaktInfoProperties.getRandomEpostadresse());
+        kontaktinformasjon.setMobiltelefonnummer(kontaktInfoProperties.getRandomMobiltelefonnummer());
+        return kontaktinformasjon;
     }
 
 }
