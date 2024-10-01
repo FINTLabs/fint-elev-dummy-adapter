@@ -37,7 +37,6 @@ public class PersonFactory {
     }
 
     private Date randomFodselsDato() {
-        Random random = new Random();
         Date fodselsdato = new Date();
         fodselsdato.setYear(2003);
         fodselsdato.setMonth(9);
