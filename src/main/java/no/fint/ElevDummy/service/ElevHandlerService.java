@@ -1,4 +1,4 @@
-package no.fint.customcode.service;
+package no.fint.ElevDummy.service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.DummyAdapterActions;

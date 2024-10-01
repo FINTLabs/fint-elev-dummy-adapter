@@ -1,16 +1,15 @@
-package no.fint.customcode.service.person;
+package no.fint.ElevDummy.service.person;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.DummyAdapterActions;
 import no.fint.adapter.event.EventResponseService;
 import no.fint.adapter.event.EventStatusService;
-import no.fint.customcode.service.Handler;
+import no.fint.ElevDummy.service.Handler;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.felles.PersonResource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

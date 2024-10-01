@@ -1,7 +1,6 @@
-package no.fint.customcode.PersonProperties;
+package no.fint.ElevDummy.PersonProperties;
 
 import lombok.Data;
-import no.fint.model.felles.kompleksedatatyper.Adresse;
 import no.fint.model.resource.felles.kompleksedatatyper.AdresseResource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

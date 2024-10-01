@@ -3,7 +3,7 @@ package no.fint.adapter.event;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.adapter.FintAdapterEndpoints;
 import no.fint.adapter.FintAdapterProps;
-import no.fint.customcode.SupportedActions;
+import no.fint.ElevDummy.SupportedActions;
 import no.fint.event.model.DefaultActions;
 import no.fint.event.model.Event;
 import no.fint.event.model.HeaderConstants;

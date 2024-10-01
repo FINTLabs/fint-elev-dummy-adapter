@@ -1,9 +1,9 @@
-package no.fint.customcode.service;
+package no.fint.ElevDummy.service;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.adapter.event.EventResponseService;
 import no.fint.adapter.event.EventStatusService;
-import no.fint.customcode.SupportedActions;
+import no.fint.ElevDummy.SupportedActions;
 import no.fint.event.model.Event;
 import no.fint.event.model.ResponseStatus;
 import no.fint.event.model.Status;

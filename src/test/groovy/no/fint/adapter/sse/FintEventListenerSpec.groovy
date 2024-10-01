@@ -1,7 +1,7 @@
 package no.fint.adapter.sse
 
 import no.fint.adapter.sse.FintEventListener
-import no.fint.customcode.service.ElevHandlerService
+import no.fint.ElevDummy.service.ElevHandlerService
 import no.fint.event.model.DefaultActions
 import no.fint.event.model.Event
 import org.glassfish.jersey.media.sse.InboundEvent

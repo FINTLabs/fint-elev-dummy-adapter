@@ -1,4 +1,4 @@
-package no.fint.customcode.PersonProperties;
+package no.fint.ElevDummy.PersonProperties;
 
 
 import lombok.Data;

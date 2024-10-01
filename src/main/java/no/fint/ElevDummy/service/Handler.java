@@ -1,4 +1,4 @@
-package no.fint.customcode.service;
+package no.fint.ElevDummy.service;
 
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;

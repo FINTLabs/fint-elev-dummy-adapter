@@ -1,4 +1,4 @@
-package no.fint.customcode;
+package no.fint.ElevDummy;
 
 import no.fint.adapter.AbstractSupportedActions;
 import org.springframework.stereotype.Component;

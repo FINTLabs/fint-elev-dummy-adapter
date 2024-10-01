@@ -1,4 +1,4 @@
-package no.fint.customcode.service
+package no.fint.ElevDummy.service
 
 import no.fint.adapter.event.EventResponseService
 import no.fint.adapter.event.EventStatusService
