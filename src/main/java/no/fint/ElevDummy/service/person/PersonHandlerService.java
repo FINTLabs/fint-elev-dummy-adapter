@@ -1,5 +1,6 @@
 package no.fint.ElevDummy.service.person;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.DummyAdapterActions;
 import no.fint.adapter.event.EventResponseService;
@@ -23,6 +24,7 @@ public class PersonHandlerService implements Handler {
 
     private EventStatusService eventStatusService;
 
+    @Getter
     private List<PersonResource> personer;
 
     private PersonFactory personFactory;
@@ -32,7 +34,7 @@ public class PersonHandlerService implements Handler {
         this.eventStatusService = eventStatusService;
         this.personFactory = personFactory;
         personer = new ArrayList<>();
-        populateCache(1);
+        populateCache(5);
     }
 
     private void populateCache (int i){
@@ -40,6 +42,10 @@ public class PersonHandlerService implements Handler {
             personer.add(personFactory.createPerson());
         }
         log.info("Persons created: {}", personer.toString());
+    }
+
+    public int personSize(){
+        return personer.size();
     }
 
     @Override

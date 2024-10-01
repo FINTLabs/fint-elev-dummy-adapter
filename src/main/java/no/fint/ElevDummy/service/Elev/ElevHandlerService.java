@@ -10,6 +10,7 @@ import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.utdanning.elev.ElevResource;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class ElevHandlerService implements Handler {
         this.eventStatusService = eventStatusService;
         this.elever = elever;
         this.elevFactory = elevFactory;
-        populateCache(1);
+        populateCache(5);
     }
 
     private void populateCache (int i){
