@@ -16,5 +16,4 @@ public record NameProperties(
         personnavn.setEtternavn(lastname.get(new Random().nextInt(lastname.size())));
         return personnavn;
     }
-
 }

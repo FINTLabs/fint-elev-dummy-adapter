@@ -4,9 +4,11 @@ import no.fint.ElevDummy.ElevProperties.ElevProperties;
 import no.fint.ElevDummy.PersonProperties.AdresseProperties;
 import no.fint.model.felles.kompleksedatatyper.Identifikator;
 import no.fint.model.resource.utdanning.elev.ElevResource;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class ElevFactory {
 
     private final ElevProperties properties;
