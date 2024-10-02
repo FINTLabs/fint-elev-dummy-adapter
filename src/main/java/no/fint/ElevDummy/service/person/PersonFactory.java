@@ -5,11 +5,11 @@ import no.fint.ElevDummy.PersonProperties.AdresseProperties;
 import no.fint.ElevDummy.PersonProperties.KontaktInfoProperties;
 import no.fint.ElevDummy.PersonProperties.PersonProperties;
 import no.fint.ElevDummy.service.IdUtil;
+import no.fint.model.felles.kompleksedatatyper.Identifikator;
 import no.fint.model.resource.felles.PersonResource;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.Random;
 
 @Slf4j
 @Component
@@ -27,16 +27,17 @@ public class PersonFactory {
 
     public PersonResource createPerson() {
         PersonResource personResource = new PersonResource();
+        Identifikator identifikator = IdUtil.createId();
         personResource.setNavn(personProperties.getNames().getRandomPersonnavn());
         personResource.setBostedsadresse(adresseProperties.getRandomAdresse());
-        personResource.setFodselsnummer(IdUtil.createId());
-        personResource.setFodselsdato(randomFodselsDato());
+        personResource.setFodselsnummer(identifikator);
+        personResource.setFodselsdato(setFodselsdato());
         personResource.setPostadresse(adresseProperties.getRandomAdresse());
         personResource.setKontaktinformasjon(kontaktInfoProperties.getRandomKontaktinformasjon());
         return personResource;
     }
 
-    private Date randomFodselsDato() {
+    private Date setFodselsdato() {
         Date fodselsdato = new Date();
         fodselsdato.setYear(2003);
         fodselsdato.setMonth(9);

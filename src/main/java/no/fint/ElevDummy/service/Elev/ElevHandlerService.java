@@ -2,15 +2,14 @@ package no.fint.ElevDummy.service.Elev;
 
 import lombok.extern.slf4j.Slf4j;
 import no.fint.DummyAdapterActions;
+import no.fint.ElevDummy.service.CacheService;
 import no.fint.ElevDummy.service.Handler;
-import no.fint.ElevDummy.service.person.PersonFactory;
+import no.fint.ElevDummy.service.person.PersonHandlerService;
 import no.fint.adapter.event.EventResponseService;
 import no.fint.adapter.event.EventStatusService;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
-import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.utdanning.elev.ElevResource;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -25,23 +24,13 @@ public class ElevHandlerService implements Handler {
 
     private EventStatusService eventStatusService;
 
-    private List<ElevResource> elever;
+    private CacheService cacheService;
 
-    private ElevFactory elevFactory;
 
-    public ElevHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService, List<ElevResource> elever, ElevFactory elevFactory) {
+    public ElevHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService, List<ElevResource> elever, ElevFactory elevFactory, PersonHandlerService personHandlerService, CacheService cacheService) {
         this.eventResponseService = eventResponseService;
         this.eventStatusService = eventStatusService;
-        this.elever = elever;
-        this.elevFactory = elevFactory;
-        populateCache(5);
-    }
-
-    private void populateCache (int i){
-        for(int j = 0; j < i; j ++){
-            elever.add(elevFactory.generateElev());
-        }
-        log.info("Elever created: {}", elever.toString());
+        this.cacheService = cacheService;
     }
 
 
@@ -57,6 +46,7 @@ public class ElevHandlerService implements Handler {
 
     @Override
     public void accept(Event<FintLinks> response) {
+        List<ElevResource> elever = cacheService.getElever();
         elever.forEach(response::addData);
     }
 }

@@ -1,17 +1,16 @@
 package no.fint.ElevDummy.service.person;
 
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.DummyAdapterActions;
+import no.fint.ElevDummy.service.CacheService;
+import no.fint.ElevDummy.service.Handler;
 import no.fint.adapter.event.EventResponseService;
 import no.fint.adapter.event.EventStatusService;
-import no.fint.ElevDummy.service.Handler;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
 import no.fint.model.resource.felles.PersonResource;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -24,28 +23,12 @@ public class PersonHandlerService implements Handler {
 
     private EventStatusService eventStatusService;
 
-    @Getter
-    private List<PersonResource> personer;
+    private CacheService cacheService;
 
-    private PersonFactory personFactory;
-
-    public PersonHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService, PersonFactory personFactory) {
+    public PersonHandlerService(EventResponseService eventResponseService, EventStatusService eventStatusService, CacheService cacheService) {
         this.eventResponseService = eventResponseService;
         this.eventStatusService = eventStatusService;
-        this.personFactory = personFactory;
-        personer = new ArrayList<>();
-        populateCache(5);
-    }
-
-    private void populateCache (int i){
-        for(int j = 0; j < i; j ++){
-            personer.add(personFactory.createPerson());
-        }
-        log.info("Persons created: {}", personer.toString());
-    }
-
-    public int personSize(){
-        return personer.size();
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -60,6 +43,7 @@ public class PersonHandlerService implements Handler {
 
     @Override
     public void accept(Event<FintLinks> response) {
+        List<PersonResource> personer = cacheService.getPersoner();
         personer.forEach(response::addData);
     }
 }
