@@ -32,7 +32,7 @@ public class CacheService {
     public CacheService(ElevFactory elevFactory, PersonFactory personFactory) {
         this.elevFactory = elevFactory;
         this.personFactory = personFactory;
-        populateCache(15);
+        populateCache(3);
     }
 
     private void populateCache(int i) {
