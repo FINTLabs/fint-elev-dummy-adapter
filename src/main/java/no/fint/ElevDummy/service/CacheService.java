@@ -32,7 +32,7 @@ public class CacheService {
     public CacheService(ElevFactory elevFactory, PersonFactory personFactory) {
         this.elevFactory = elevFactory;
         this.personFactory = personFactory;
-        populateCache(3);
+        populateCache(10);
     }
 
     private void populateCache(int i) {
@@ -45,8 +45,6 @@ public class CacheService {
             addElev(person, elev.getSystemId());
             addPerson(elev, person.getFodselsnummer());
         }
-        log.info("Persons created: {}", personer.toString());
-        log.info("Elever created: {}", elever.toString());
     }
 
     public ElevResource addPerson(ElevResource elev, Identifikator id) {
