@@ -7,7 +7,9 @@ plugins {
 
 group = 'no.fintlabs'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
 
 configurations {
     compileOnly {
@@ -21,10 +23,8 @@ jar {
 
 repositories {
     mavenCentral()
-    repositories {
-        maven {
-            url "https://repo.fintlabs.no/releases"
-        }
+    maven {
+        url "https://repo.fintlabs.no/releases"
     }
     mavenLocal()
 }
@@ -32,26 +32,18 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
-
-    implementation 'org.projectlombok:lombok:1.18.6'
-    implementation 'com.google.guava:guava:28.2-jre'
-    implementation 'com.sun.activation:javax.activation:1.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
     implementation 'no.fint:fint-sse:2.0.1'
     implementation 'no.fint:fint-event-model:3.0.2'
-    implementation 'no.fint:fint-relation-model:1.1.6'
-    implementation 'no.fint:fint-utdanning-model-java:3.18.0'
-    implementation 'no.fint:fint-utdanning-resource-model-java:3.16.0'
+    implementation 'no.fint:fint-utdanning-resource-model-java:3.18.0'
 
-
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'io.netty:netty-resolver-dns-native-macos:4.1.101.Final:osx-aarch_64'
+    implementation 'com.sun.activation:javax.activation:1.2.0'
+    implementation 'com.google.guava:guava:32.0.0-android'
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
 
-    implementation('no.fint:fint-relations:2.2.1') {
-        exclude group: 'com.github.springfox.loader'
-        exclude group: 'org.springframework.boot'
-    }
-
+    implementation 'org.projectlombok:lombok:1.18.6'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
