@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -33,6 +34,7 @@ public class CacheService {
         this.elevFactory = elevFactory;
         this.personFactory = personFactory;
         populateCache(10);
+        populateCacheWithRelationError(3);
     }
 
     private void populateCache(int i) {
@@ -44,6 +46,29 @@ public class CacheService {
 
             addElev(person, elev.getSystemId());
             addPerson(elev, person.getFodselsnummer());
+        }
+    }
+
+    private void populateCacheWithRelationError(int i) {
+        for (int j = 0; j < i; j++) {
+            PersonResource person = personFactory.createPerson();
+            ElevResource elev = elevFactory.createElev();
+            personer.add(person);
+            elever.add(elev);
+
+            addElev(person, new Identifikator(){
+                @Override
+                public void setIdentifikatorverdi(String identifikatorverdi) {
+                    super.setIdentifikatorverdi(UUID.randomUUID().toString());
+                }
+            });
+
+            addPerson(elev, new Identifikator(){
+                @Override
+                public void setIdentifikatorverdi(String identifikatorverdi) {
+                    super.setIdentifikatorverdi(UUID.randomUUID().toString());
+                }
+            });
         }
     }
 
