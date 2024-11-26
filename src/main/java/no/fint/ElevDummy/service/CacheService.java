@@ -25,10 +25,10 @@ public class CacheService {
     private final PersonFactory personFactory;
 
     @Getter
-    List<PersonResource> personer = new ArrayList<>();
+    private final List<PersonResource> personer = new ArrayList<>();
 
     @Getter
-    List<ElevResource> elever = new ArrayList<>();
+    private final List<ElevResource> elever = new ArrayList<>();
 
     public CacheService(ElevFactory elevFactory, PersonFactory personFactory) {
         this.elevFactory = elevFactory;
