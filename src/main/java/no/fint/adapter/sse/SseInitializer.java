@@ -1,7 +1,10 @@
 package no.fint.adapter.sse;
 
 import com.google.common.collect.ImmutableMap;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.adapter.FintAdapterEndpoints;
@@ -14,8 +17,6 @@ import no.fint.sse.FintSseConfig;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,25 +28,16 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class SseInitializer {
 
     @Getter
-    private List<FintSse> sseClients = new ArrayList<>();
+    private final List<FintSse> sseClients = new ArrayList<>();
 
     private final FintAdapterProps props;
-
     private final FintAdapterEndpoints endpoints;
-
     private final EventHandlerService eventHandlerService;
-
     private final TokenService tokenService;
-
-    public SseInitializer(FintAdapterProps props, FintAdapterEndpoints endpoints, EventHandlerService eventHandlerService, TokenService tokenService) {
-        this.props = props;
-        this.endpoints = endpoints;
-        this.eventHandlerService = eventHandlerService;
-        this.tokenService = tokenService;
-    }
 
     @PostConstruct
     @Synchronized
@@ -95,10 +87,9 @@ public class SseInitializer {
     @PreDestroy
     @Synchronized
     public void cleanup() {
-        List<FintSse> oldClients = sseClients;
-        sseClients = new ArrayList<>();
-        for (FintSse sseClient : oldClients) {
+        for (FintSse sseClient : sseClients) {
             sseClient.close();
         }
+        sseClients.clear();
     }
 }
