@@ -3,6 +3,8 @@ security:
     enabled: false
 
 fint:
+  oauth:
+    enabled: true
   adapter:
     organizations: mock.no
     sse-endpoint: http://localhost:8080/provider/sse/%s
