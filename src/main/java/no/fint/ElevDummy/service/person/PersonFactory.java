@@ -28,7 +28,7 @@ public class PersonFactory {
     public PersonResource createPerson() {
         PersonResource personResource = new PersonResource();
         Identifikator identifikator = IdUtil.createId();
-        personResource.setNavn(personProperties.getNames().getRandomPersonnavn());
+        personResource.setNavn(personProperties.names().getRandomPersonnavn());
         personResource.setBostedsadresse(adresseProperties.getRandomAdresse());
         personResource.setFodselsnummer(identifikator);
         personResource.setFodselsdato(setFodselsdato());
