@@ -1,40 +1,33 @@
 package no.fint.adapter.event;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import no.fint.ElevDummy.SupportedActions;
+import no.fint.ProviderClient;
 import no.fint.adapter.FintAdapterEndpoints;
 import no.fint.adapter.FintAdapterProps;
-import no.fint.ElevDummy.SupportedActions;
 import no.fint.event.model.DefaultActions;
 import no.fint.event.model.Event;
 import no.fint.event.model.HeaderConstants;
 import no.fint.event.model.Status;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Handles statuses back to the provider status endpoint.
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class EventStatusService {
 
+    private final ProviderClient providerClient;
     private final FintAdapterEndpoints endpoints;
-
-    private final RestTemplate restTemplate;
-
     private final SupportedActions supportedActions;
-
     private final FintAdapterProps props;
-
-    public EventStatusService(FintAdapterEndpoints endpoints, @Qualifier("oauth2RestTemplate") RestTemplate restTemplate, SupportedActions supportedActions, FintAdapterProps props) {
-        this.endpoints = endpoints;
-        this.restTemplate = restTemplate;
-        this.supportedActions = supportedActions;
-        this.props = props;
-    }
 
     /**
      * Verifies if we can handle the event and set the status accordingly.
@@ -69,7 +62,7 @@ public class EventStatusService {
             headers.add(HeaderConstants.ORG_ID, event.getOrgId());
             headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
             String url = endpoints.getProviders().get(component) + endpoints.getStatus();
-            ResponseEntity<Void> response = restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(event, headers), Void.class);
+            ResponseEntity<Void> response = providerClient.postEvent(url, event, headers);
             log.info("{}: Provider POST status response: {}", component, response.getStatusCode());
             return true;
         } catch (RestClientException e) {
