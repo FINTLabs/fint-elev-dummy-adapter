@@ -3,6 +3,7 @@ package no.fint.ElevDummy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,10 +15,13 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class Config {
 
+    private final ObjectMapper objectMapper;
+
     @PostConstruct
-    public void init(ObjectMapper objectMapper) {
+    public void init() {
         objectMapper.setDateFormat(new ISO8601DateFormat());
     }
 
