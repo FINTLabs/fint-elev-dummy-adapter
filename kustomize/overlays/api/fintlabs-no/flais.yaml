@@ -17,7 +17,7 @@ spec:
   image: ghcr.io/fintlabs/fint-elev-dummy-adapter:latest
   imagePullPolicy: Always
   onePassword:
-    itemPath: "vaults/aks-beta-vault/items/fint-elev-dummy-adapter"
+    itemPath: "vaults/aks-api-vault/items/fint-elev-dummy-adapter"
   resources:
     limits:
       memory: 512Mi
