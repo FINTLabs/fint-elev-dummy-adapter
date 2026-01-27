@@ -8,10 +8,10 @@ server:
 fint:
   oauth:
     enabled: true
-    username: ${fint.core.oauth2.username}
-    password: ${fint.core.oauth2.password}
-    client-id: ${fint.core.oauth2.client-id}
-    client-secret: ${fint.core.oauth2.client-secret}
+    username: ${fint.adapter.username}
+    password: ${fint.adapter.password}
+    client-id: ${fint.adapter.client-id}
+    client-secret: ${fint.adapter.client-secret}
     access-token-uri: https://idp.felleskomponent.no/nidp/oauth/nam/token
     scope: fint-client
 
