@@ -25,7 +25,7 @@ fint:
       status: /status
       response: /response
       providers:
-        elev: https://beta.felleskomponent.no/utdanning/elev/provider
+        elev: https://api.felleskomponent.no/utdanning/elev/provider
 
 spring:
   profiles:
