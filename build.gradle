@@ -37,7 +37,7 @@ dependencies {
     implementation 'no.fint:fint-sse:2.0.1'
     implementation 'no.fint:fint-event-model:3.0.2'
     implementation 'no.fint:fint-utdanning-resource-model-java:3.18.0'
-    implementation 'no.fintlabs:dynamisk-adapter-core-lib:3.21.15'
+    implementation 'no.fintlabs:dynamisk-adapter-core-lib:3.21.16'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
 
