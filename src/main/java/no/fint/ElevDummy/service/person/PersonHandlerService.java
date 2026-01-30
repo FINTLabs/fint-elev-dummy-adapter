@@ -8,7 +8,7 @@ import no.fint.adapter.event.EventResponseService;
 import no.fint.adapter.event.EventStatusService;
 import no.fint.event.model.Event;
 import no.fint.model.resource.FintLinks;
-import no.fint.model.resource.felles.PersonResource;
+import no.fint.model.resource.FintResource;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -43,7 +43,7 @@ public class PersonHandlerService implements Handler {
 
     @Override
     public void accept(Event<FintLinks> response) {
-        List<PersonResource> personer = cacheService.getPersoner();
+        List<FintResource> personer = cacheService.getPersoner();
         personer.forEach(response::addData);
     }
 }

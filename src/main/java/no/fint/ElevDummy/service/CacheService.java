@@ -2,83 +2,44 @@ package no.fint.ElevDummy.service;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import no.fint.ElevDummy.service.Elev.ElevFactory;
-import no.fint.ElevDummy.service.person.PersonFactory;
-import no.fint.model.felles.Person;
-import no.fint.model.felles.kompleksedatatyper.Identifikator;
+import no.fint.model.resource.FintResource;
 import no.fint.model.resource.Link;
 import no.fint.model.resource.felles.PersonResource;
 import no.fint.model.resource.utdanning.elev.ElevResource;
-import no.fint.model.utdanning.elev.Elev;
+import no.fintlabs.dynamiskadapter.DynamicAdapterService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.IntStream;
 
 @Slf4j
 @Service
 public class CacheService {
 
-    private final ElevFactory elevFactory;
-
-    private final PersonFactory personFactory;
+    public final DynamicAdapterService dynamicAdapterService;
 
     @Getter
-    List<PersonResource> personer = new ArrayList<>();
+    List<FintResource> elever = new ArrayList<>();
 
     @Getter
-    List<ElevResource> elever = new ArrayList<>();
+    List<FintResource> personer = new ArrayList<>();
 
-    public CacheService(ElevFactory elevFactory, PersonFactory personFactory) {
-        this.elevFactory = elevFactory;
-        this.personFactory = personFactory;
-        populateCache(10);
-        populateCacheWithRelationError(3);
+
+    public CacheService(DynamicAdapterService dynamicAdapterService) {
+        this.dynamicAdapterService = dynamicAdapterService;
     }
 
-    private void populateCache(int i) {
-        for (int j = 0; j < i; j++) {
-            PersonResource person = personFactory.createPerson();
-            ElevResource elev = elevFactory.createElev();
-            personer.add(person);
-            elever.add(elev);
+    @PostConstruct
+    public void populateCache() {
+        List<ElevResource> elevResources = dynamicAdapterService.create(ElevResource.class, 100).stream().map(ElevResource.class::cast).toList();
+        List<PersonResource> personResources = dynamicAdapterService.create(PersonResource.class, 100).stream().map(PersonResource.class::cast).toList();
 
-            addElev(person, elev.getSystemId());
-            addPerson(elev, person.getFodselsnummer());
-        }
-    }
-
-    private void populateCacheWithRelationError(int i) {
-        for (int j = 0; j < i; j++) {
-            PersonResource person = personFactory.createPerson();
-            ElevResource elev = elevFactory.createElev();
-            personer.add(person);
-            elever.add(elev);
-
-            addElev(person, new Identifikator(){
-                @Override
-                public void setIdentifikatorverdi(String identifikatorverdi) {
-                    super.setIdentifikatorverdi(UUID.randomUUID().toString());
-                }
-            });
-
-            addPerson(elev, new Identifikator(){
-                @Override
-                public void setIdentifikatorverdi(String identifikatorverdi) {
-                    super.setIdentifikatorverdi(UUID.randomUUID().toString());
-                }
-            });
-        }
-    }
-
-    public ElevResource addPerson(ElevResource elev, Identifikator id) {
-        elev.addPerson(Link.with(Person.class, "fodselsnummer", id.getIdentifikatorverdi()));
-        return elev;
-    }
-
-    public PersonResource addElev(PersonResource person, Identifikator id) {
-        person.addElev(Link.with(Elev.class, "systemId", id.getIdentifikatorverdi()));
-        return person;
+        IntStream.range(0, elevResources.size()).forEach(i -> {
+            log.info("Adding person {} to elev {}", personResources.get(i).getFodselsnummer().getIdentifikatorverdi(), elevResources.get(i).getElevnummer());
+            ElevResource elev = elevResources.get(i);
+            elev.addPerson(Link.with(PersonResource.class, "fodselsnummer", personResources.get(i).getFodselsnummer().getIdentifikatorverdi()));
+        });
     }
 }
